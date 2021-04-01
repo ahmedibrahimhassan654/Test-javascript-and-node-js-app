@@ -27,11 +27,15 @@ describe('findUserByEmail function',()=>{
      })
 
      it('rejects with error if user with email was not found',()=>{
-         return findUserByEmail('miss_myers@models.co').then(()=>{
-             assert.fail('expected findUserByEmail function to rejected')
-         },error=>{
-            assert.equal(error.message,'User with email: miss_myers@models.co was not found.')
-         })
+
+        const actual= findUserByEmail('miss_myers@models.co')
+        expect(actual).rejects.toEqual(new Error('User with email: miss_myers@models.co was not found.'))
+
+        //  return findUserByEmail('miss_myers@models.co').then(()=>{
+        //      assert.fail('expected findUserByEmail function to rejected')
+        //  },error=>{
+        //     assert.equal(error.message,'User with email: miss_myers@models.co was not found.')
+        //  })
      })
 
 }) 
@@ -40,15 +44,19 @@ describe('findUserByEmail function',()=>{
 describe('findUserById function',()=>{
     it('find user by Id using async await ',async()=>{
         const response=await findUserById(2)
-        assert.equal(response.message,'User found successfully.')
+        expect(response.message).toBe('User found successfully.')
+        // assert.equal(response.message,'User found successfully.')
              
          
      })
      it('rejects with error if user with id was not found',()=>{
-        return findUserById(92).then(()=>{
-            assert.fail('expected findUserById function to rejected')
-        },error=>{
-           assert.equal(error.message,'User with id: 92 was not found.')
-        })
+        const actual= findUserById(92)
+        expect(actual).rejects.toEqual(new Error('User with id: 92 was not found.'))
+
+        // return findUserById(92).then(()=>{
+        //     assert.fail('expected findUserById function to rejected')
+        // },error=>{
+        //    assert.equal(error.message,'User with id: 92 was not found.')
+        // })
     })
 }) 
