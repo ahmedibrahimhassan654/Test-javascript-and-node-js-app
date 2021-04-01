@@ -20,9 +20,18 @@ describe('findUserByEmail function',()=>{
     })
 
     it('find user by email using async await ',async()=>{
-        const response=await findUserByEmail('miss_myers@models.co')
-        assert.equal(response.message,'User found successully.')
+        const response=await findUserByEmail('miss_myers@models.co.uk')
+        assert.equal(response.message,'User found successfully.')
              
          
      })
+
+     it('rejects with error if user with email was not found',()=>{
+         return findUserByEmail('miss_myers@models.co').then(()=>{
+             assert.fail('expected findUserByEmail function to rejected')
+         },error=>{
+            assert.equal(error.message,'User with email: miss_myers@models.co was not found.')
+         })
+     })
+
 }) 
